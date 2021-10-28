@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Blog | bootplug</title>
+    <link>https://blog.bootplug.io/</link>
+    <description>Recent content on Blog | bootplug</description>
+    <image>
+      <url>https://blog.bootplug.io/papermod-cover.png</url>
+      <link>https://blog.bootplug.io/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 28 Oct 2021 00:20:10 +0200</lastBuildDate><atom:link href="https://blog.bootplug.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Okay</title>
+      <link>https://blog.bootplug.io/posts/ctf/okay/</link>
+      <pubDate>Thu, 28 Oct 2021 00:20:10 +0200</pubDate>
+      
+      <guid>https://blog.bootplug.io/posts/ctf/okay/</guid>
+      <description>What is going on import os os.spawn(&amp;#34;Hello&amp;#34;) </description>
+    </item>
+    
+    <item>
+      <title>Testpost</title>
+      <link>https://blog.bootplug.io/posts/testpost/</link>
+      <pubDate>Wed, 27 Oct 2021 21:49:09 +0000</pubDate>
+      
+      <guid>https://blog.bootplug.io/posts/testpost/</guid>
+      <description>Hello This is a great thing, so let&amp;rsquo;s go!
+Here is my first post
+Ok </description>
+    </item>
+    
+    
+    
+  </channel>
+</rss>
