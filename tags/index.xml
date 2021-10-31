@@ -2,12 +2,76 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tags on Blog | bootplug</title>
-    <link>https://blog.bootplug.io/tags/</link>
+    <link>https://bootplug.io/tags/</link>
     <description>Recent content in Tags on Blog | bootplug</description>
     <image>
-      <url>https://blog.bootplug.io/papermod-cover.png</url>
-      <link>https://blog.bootplug.io/papermod-cover.png</link>
+      <url>https://bootplug.io/papermod-cover.png</url>
+      <link>https://bootplug.io/papermod-cover.png</link>
     </image>
-    <generator>Hugo -- gohugo.io</generator><atom:link href="https://blog.bootplug.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 31 Oct 2021 15:17:02 +0100</lastBuildDate><atom:link href="https://bootplug.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>crypto</title>
+      <link>https://bootplug.io/tags/crypto/</link>
+      <pubDate>Sun, 31 Oct 2021 15:17:02 +0100</pubDate>
+      
+      <guid>https://bootplug.io/tags/crypto/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ctf</title>
+      <link>https://bootplug.io/tags/ctf/</link>
+      <pubDate>Sun, 31 Oct 2021 15:17:02 +0100</pubDate>
+      
+      <guid>https://bootplug.io/tags/ctf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>forensics</title>
+      <link>https://bootplug.io/tags/forensics/</link>
+      <pubDate>Sun, 31 Oct 2021 15:17:02 +0100</pubDate>
+      
+      <guid>https://bootplug.io/tags/forensics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ics</title>
+      <link>https://bootplug.io/tags/ics/</link>
+      <pubDate>Sun, 31 Oct 2021 15:17:02 +0100</pubDate>
+      
+      <guid>https://bootplug.io/tags/ics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pwn</title>
+      <link>https://bootplug.io/tags/pwn/</link>
+      <pubDate>Sun, 31 Oct 2021 15:17:02 +0100</pubDate>
+      
+      <guid>https://bootplug.io/tags/pwn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>reversing</title>
+      <link>https://bootplug.io/tags/reversing/</link>
+      <pubDate>Sun, 31 Oct 2021 15:17:02 +0100</pubDate>
+      
+      <guid>https://bootplug.io/tags/reversing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>web</title>
+      <link>https://bootplug.io/tags/web/</link>
+      <pubDate>Sun, 31 Oct 2021 15:17:02 +0100</pubDate>
+      
+      <guid>https://bootplug.io/tags/web/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

@@ -2,29 +2,55 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://blog.bootplug.io/</loc>
-    <lastmod>2021-10-28T00:20:10+02:00</lastmod>
+    <loc>https://bootplug.io/</loc>
+    <lastmod>2021-10-31T15:17:02+01:00</lastmod>
   </url><url>
-    <loc>https://blog.bootplug.io/posts/ctf/</loc>
-    <lastmod>2021-10-28T00:20:10+02:00</lastmod>
+    <loc>https://bootplug.io/categories/</loc>
+    <lastmod>2021-10-31T15:17:02+01:00</lastmod>
   </url><url>
-    <loc>https://blog.bootplug.io/posts/ctf/okay/</loc>
-    <lastmod>2021-10-28T00:20:10+02:00</lastmod>
+    <loc>https://bootplug.io/tags/crypto/</loc>
+    <lastmod>2021-10-31T15:17:02+01:00</lastmod>
   </url><url>
-    <loc>https://blog.bootplug.io/posts/</loc>
-    <lastmod>2021-10-28T00:20:10+02:00</lastmod>
+    <loc>https://bootplug.io/tags/ctf/</loc>
+    <lastmod>2021-10-31T15:17:02+01:00</lastmod>
   </url><url>
-    <loc>https://blog.bootplug.io/posts/testpost/</loc>
-    <lastmod>2021-10-27T21:49:09+00:00</lastmod>
+    <loc>https://bootplug.io/categories/ctf/</loc>
+    <lastmod>2021-10-31T15:17:02+01:00</lastmod>
   </url><url>
-    <loc>https://blog.bootplug.io/archive/</loc>
+    <loc>https://bootplug.io/posts/ctf/</loc>
+    <lastmod>2021-10-31T15:17:02+01:00</lastmod>
   </url><url>
-    <loc>https://blog.bootplug.io/categories/</loc>
+    <loc>https://bootplug.io/categories/equinor-ctf-2021/</loc>
+    <lastmod>2021-10-31T15:17:02+01:00</lastmod>
   </url><url>
-    <loc>https://blog.bootplug.io/search/</loc>
+    <loc>https://bootplug.io/posts/ctf/equinorctf/</loc>
+    <lastmod>2021-10-31T15:17:02+01:00</lastmod>
   </url><url>
-    <loc>https://blog.bootplug.io/series/</loc>
+    <loc>https://bootplug.io/tags/forensics/</loc>
+    <lastmod>2021-10-31T15:17:02+01:00</lastmod>
   </url><url>
-    <loc>https://blog.bootplug.io/tags/</loc>
+    <loc>https://bootplug.io/tags/ics/</loc>
+    <lastmod>2021-10-31T15:17:02+01:00</lastmod>
+  </url><url>
+    <loc>https://bootplug.io/posts/</loc>
+    <lastmod>2021-10-31T15:17:02+01:00</lastmod>
+  </url><url>
+    <loc>https://bootplug.io/tags/pwn/</loc>
+    <lastmod>2021-10-31T15:17:02+01:00</lastmod>
+  </url><url>
+    <loc>https://bootplug.io/tags/reversing/</loc>
+    <lastmod>2021-10-31T15:17:02+01:00</lastmod>
+  </url><url>
+    <loc>https://bootplug.io/tags/</loc>
+    <lastmod>2021-10-31T15:17:02+01:00</lastmod>
+  </url><url>
+    <loc>https://bootplug.io/tags/web/</loc>
+    <lastmod>2021-10-31T15:17:02+01:00</lastmod>
+  </url><url>
+    <loc>https://bootplug.io/archive/</loc>
+  </url><url>
+    <loc>https://bootplug.io/search/</loc>
+  </url><url>
+    <loc>https://bootplug.io/series/</loc>
   </url>
 </urlset>
