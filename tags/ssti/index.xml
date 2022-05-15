@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>ctf on Blog | bootplug</title>
-    <link>https://bootplug.io/tags/ctf/</link>
-    <description>Recent content in ctf on Blog | bootplug</description>
+    <title>ssti on Blog | bootplug</title>
+    <link>https://bootplug.io/tags/ssti/</link>
+    <description>Recent content in ssti on Blog | bootplug</description>
     <image>
       <url>https://bootplug.io/papermod-cover.png</url>
       <link>https://bootplug.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 15 May 2022 11:05:16 +0200</lastBuildDate><atom:link href="https://bootplug.io/tags/ctf/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 15 May 2022 11:05:16 +0200</lastBuildDate><atom:link href="https://bootplug.io/tags/ssti/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>m0leCon CTF 2022 Teaser</title>
       <link>https://bootplug.io/posts/ctf/m0leconctf_2022/</link>
@@ -17,15 +17,6 @@
       
       <guid>https://bootplug.io/posts/ctf/m0leconctf_2022/</guid>
       <description>Writeups from m0leCon CTF 2022 qualifier</description>
-    </item>
-    
-    <item>
-      <title>Equinor CTF 2021</title>
-      <link>https://bootplug.io/posts/ctf/equinorctf/</link>
-      <pubDate>Sun, 31 Oct 2021 15:17:02 +0100</pubDate>
-      
-      <guid>https://bootplug.io/posts/ctf/equinorctf/</guid>
-      <description>Writeups from Equinor&amp;#39;s CTF</description>
     </item>
     
   </channel>

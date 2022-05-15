@@ -9,13 +9,22 @@
       <link>https://bootplug.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 31 Oct 2021 15:17:02 +0100</lastBuildDate><atom:link href="https://bootplug.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 15 May 2022 11:05:16 +0200</lastBuildDate><atom:link href="https://bootplug.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ctf</title>
       <link>https://bootplug.io/categories/ctf/</link>
-      <pubDate>Sun, 31 Oct 2021 15:17:02 +0100</pubDate>
+      <pubDate>Sun, 15 May 2022 11:05:16 +0200</pubDate>
       
       <guid>https://bootplug.io/categories/ctf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>m0leCon CTF 2022 Teaser</title>
+      <link>https://bootplug.io/categories/m0lecon-ctf-2022-teaser/</link>
+      <pubDate>Sun, 15 May 2022 11:05:16 +0200</pubDate>
+      
+      <guid>https://bootplug.io/categories/m0lecon-ctf-2022-teaser/</guid>
       <description></description>
     </item>
     

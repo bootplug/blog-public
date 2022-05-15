@@ -9,22 +9,49 @@
       <link>https://bootplug.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 31 Oct 2021 15:17:02 +0100</lastBuildDate><atom:link href="https://bootplug.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 15 May 2022 11:05:16 +0200</lastBuildDate><atom:link href="https://bootplug.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ctf</title>
+      <link>https://bootplug.io/tags/ctf/</link>
+      <pubDate>Sun, 15 May 2022 11:05:16 +0200</pubDate>
+      
+      <guid>https://bootplug.io/tags/ctf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>dirty pipe</title>
+      <link>https://bootplug.io/tags/dirty-pipe/</link>
+      <pubDate>Sun, 15 May 2022 11:05:16 +0200</pubDate>
+      
+      <guid>https://bootplug.io/tags/dirty-pipe/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pwn</title>
+      <link>https://bootplug.io/tags/pwn/</link>
+      <pubDate>Sun, 15 May 2022 11:05:16 +0200</pubDate>
+      
+      <guid>https://bootplug.io/tags/pwn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ssti</title>
+      <link>https://bootplug.io/tags/ssti/</link>
+      <pubDate>Sun, 15 May 2022 11:05:16 +0200</pubDate>
+      
+      <guid>https://bootplug.io/tags/ssti/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>crypto</title>
       <link>https://bootplug.io/tags/crypto/</link>
       <pubDate>Sun, 31 Oct 2021 15:17:02 +0100</pubDate>
       
       <guid>https://bootplug.io/tags/crypto/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ctf</title>
-      <link>https://bootplug.io/tags/ctf/</link>
-      <pubDate>Sun, 31 Oct 2021 15:17:02 +0100</pubDate>
-      
-      <guid>https://bootplug.io/tags/ctf/</guid>
       <description></description>
     </item>
     
@@ -43,15 +70,6 @@
       <pubDate>Sun, 31 Oct 2021 15:17:02 +0100</pubDate>
       
       <guid>https://bootplug.io/tags/ics/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>pwn</title>
-      <link>https://bootplug.io/tags/pwn/</link>
-      <pubDate>Sun, 31 Oct 2021 15:17:02 +0100</pubDate>
-      
-      <guid>https://bootplug.io/tags/pwn/</guid>
       <description></description>
     </item>
     
