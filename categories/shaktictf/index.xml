@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>ShaktiCTF on Blog | bootplug</title>
+    <link>https://bootplug.io/categories/shaktictf/</link>
+    <description>Recent content in ShaktiCTF on Blog | bootplug</description>
+    <image>
+      <url>https://bootplug.io/papermod-cover.png</url>
+      <link>https://bootplug.io/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 10 Dec 2022 17:04:13 +0100</lastBuildDate><atom:link href="https://bootplug.io/categories/shaktictf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ShaktiCTF 2022</title>
+      <link>https://bootplug.io/posts/ctf/shaktictf_22/</link>
+      <pubDate>Sat, 10 Dec 2022 17:04:13 +0100</pubDate>
+      
+      <guid>https://bootplug.io/posts/ctf/shaktictf_22/</guid>
+      <description>Writeups from ShaktiCTF 2022, a CTF on the conference ShaktiCon (https://www.shakticon.com/) that focuses on inspiring, training and upskilling women in cybersecurity. We find their challenges cool, some clever and very good for training and understanding concepts. Thanks for your work! </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -9,7 +9,16 @@
       <link>https://bootplug.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 15 May 2022 11:05:16 +0200</lastBuildDate><atom:link href="https://bootplug.io/tags/pwn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 10 Dec 2022 17:04:13 +0100</lastBuildDate><atom:link href="https://bootplug.io/tags/pwn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ShaktiCTF 2022</title>
+      <link>https://bootplug.io/posts/ctf/shaktictf_22/</link>
+      <pubDate>Sat, 10 Dec 2022 17:04:13 +0100</pubDate>
+      
+      <guid>https://bootplug.io/posts/ctf/shaktictf_22/</guid>
+      <description>Writeups from ShaktiCTF 2022, a CTF on the conference ShaktiCon (https://www.shakticon.com/) that focuses on inspiring, training and upskilling women in cybersecurity. We find their challenges cool, some clever and very good for training and understanding concepts. Thanks for your work! </description>
+    </item>
+    
     <item>
       <title>m0leCon CTF 2022 Teaser</title>
       <link>https://bootplug.io/posts/ctf/m0leconctf_2022/</link>
